@@ -1,7 +1,6 @@
 package task_generators;
 
-import task_generators.TaskGenerator;
-import tasks.math_tasks.*;
+import tasks.math_tasks.ExpressionTask;
 
 class ExpressionTaskGenerator implements TaskGenerator {
     /**

@@ -36,7 +36,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         this.allowDuplicate = allowDuplicate;
         if (!allowDuplicate) {
             if (tasks.stream().distinct().count() != tasks.size()) {
-                throw new IllegalArgumentException("Oops, duplicates");
+                throw new IllegalArgumentException("Упс, дубликаты в коллекции");
             }
         }
     }

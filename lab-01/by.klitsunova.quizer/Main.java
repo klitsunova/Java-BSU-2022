@@ -1,3 +1,5 @@
+import tasks.Task;
+
 import java.util.Map;
 import java.util.Scanner;
 
@@ -5,17 +7,23 @@ public class Main {
     public static void main(String[] args) {
         Map<String, Quiz> quizMap = getQuizMap();
         Quiz quiz = null;
+        Scanner scanner = new Scanner(System.in);
         while (quiz == null) {
             System.out.println("Введите название теста...");
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.next();
             quiz = quizMap.get(input);
         }
-        /* QUIZ CODE HERE
-        *
-        *
-        */
-
+        while (!quiz.isFinished()) {
+            Task task = quiz.nextTask();
+            System.out.println(task.getText());
+            String answer = scanner.nextLine();
+            switch (quiz.provideAnswer(answer)) {
+                case OK -> System.out.println("ОК");
+                case WRONG -> System.out.println("НЕ ОК");
+                case INCORRECT_INPUT -> System.out.println("Некорректный ввод, попробуйте еще раз:");
+            }
+        }
+        System.out.println("УРА, ВЫ С ЭТИМ СПРАВИЛИСЬ! ОЦЕНКА: " + quiz.getMark());
     }
 
     /**

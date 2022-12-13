@@ -1,5 +1,6 @@
 package task_generators;
 
+import task_generators.TaskGenerator;
 import tasks.math_tasks.*;
 
 public class EquationTaskGenerator implements TaskGenerator {

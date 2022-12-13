@@ -1,7 +1,6 @@
 import task_generators.TaskGenerator;
 import tasks.Result;
 import tasks.Task;
-import tasks.TextTask;
 
 /**
  * Class, который описывает один тест
@@ -11,8 +10,17 @@ public class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
+
+    private final TaskGenerator generator;
+    private final int taskCount;
+    private int correctAnswerNumber = 0;
+    private int wrongAnswerNumber = 0;
+    private int incorrectInputNumber = 0;
+    private Task currentTask;
+
     Quiz(TaskGenerator generator, int taskCount) {
-        // ...
+        this.generator = generator;
+        this.taskCount = taskCount;
     }
 
     /**
@@ -20,8 +28,10 @@ public class Quiz {
      * @see Task
      */
     Task nextTask() {
-        // ...
-        return new TextTask();
+        if (currentTask == null) {
+            currentTask = generator.generate();
+        }
+        return currentTask;
     }
 
     /**
@@ -29,48 +39,54 @@ public class Quiz {
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
     Result provideAnswer(String answer) {
-        // ...
-        return Result.INCORRECT_INPUT;
+        Result result = currentTask.validate(answer);
+        switch (result) {
+            case OK -> {
+                correctAnswerNumber++;
+                currentTask = null;
+            }
+            case WRONG -> {
+                wrongAnswerNumber++;
+                currentTask = null;
+            }
+            case INCORRECT_INPUT -> incorrectInputNumber++;
+        }
+        return result;
     }
 
     /**
      * @return завершен ли тест
      */
     boolean isFinished() {
-        // ...
-        return true;
+        return correctAnswerNumber + wrongAnswerNumber == taskCount;
     }
 
     /**
      * @return количество правильных ответов
      */
     int getCorrectAnswerNumber() {
-        // ...
-        return 0;
+        return correctAnswerNumber;
     }
 
     /**
      * @return количество неправильных ответов
      */
     int getWrongAnswerNumber() {
-        // ...
-        return 0;
+        return wrongAnswerNumber;
     }
 
     /**
      * @return количество раз, когда был предоставлен неправильный ввод
      */
     int getIncorrectInputNumber() {
-        // ...
-        return 0;
+        return incorrectInputNumber;
     }
 
     /**
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
-     *         Оценка выставляется только в конце!
+     * Оценка выставляется только в конце!
      */
     double getMark() {
-        // ...
-        return 0;
+        return correctAnswerNumber / (double) taskCount;
     }
 }

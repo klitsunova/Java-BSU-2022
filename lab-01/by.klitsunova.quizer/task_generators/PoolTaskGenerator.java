@@ -36,5 +36,6 @@ public class PoolTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         // ...
+        return null;
     }
 }

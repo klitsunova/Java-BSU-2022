@@ -1,8 +1,9 @@
 package task_generators;
 
-import java.util.*;
+import tasks.Task;
 
-import tasks.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 class GroupTaskGenerator implements TaskGenerator {
     /**
@@ -30,5 +31,6 @@ class GroupTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         // ...
+        return null;
     }
 }

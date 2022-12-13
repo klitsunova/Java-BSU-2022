@@ -27,5 +27,6 @@ class ExpressionTaskGenerator implements TaskGenerator {
      */
     public ExpressionTask generate() {
         // ...
+        return null;
     }
 }

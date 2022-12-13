@@ -27,5 +27,6 @@ public class EquationTaskGenerator implements TaskGenerator {
      */
     public EquationTask generate() {
         // ...
+        return null;
     }
 }
